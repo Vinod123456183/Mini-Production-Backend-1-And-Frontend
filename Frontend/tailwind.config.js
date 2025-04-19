@@ -1,8 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-
-export default {
+module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-
   theme: {
     extend: {
       fontFamily: {
@@ -19,7 +17,6 @@ export default {
         "m-plus-2": ['"M PLUS 2"', "sans-serif"],
         ubuntu: ['"Ubuntu"', "sans-serif"],
         kodchasan: ['"Kodchasan"', "sans-serif"],
-        // Premium
         "peignior-sans-serif": ['"Peignior Sans Serif"', "sans-serif"],
         "north-culture": ['"North Culture"', "sans-serif"],
         "compel-geometric": ['"Compel Geometric"', "sans-serif"],
@@ -41,7 +38,6 @@ export default {
         "bodoni-moda-sc": ['"Bodoni Moda SC"', "serif"],
         "pt-mono": ['"PT Mono"', "monospace"],
       },
-
       colors: {
         whatsappColor: "#25D366",
         fbColor: "#4267B2",
@@ -308,7 +304,6 @@ export default {
         "rusted-gold": "#ce9e62",
         "black-for-contrast": "#2c2c2c",
       },
-
       fontWeight: {
         thin: 100,
         extralight: 200,
