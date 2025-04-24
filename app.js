@@ -12,8 +12,8 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
-const db = require("./config/mongoose-atlas-connection");
-// const db = require("./config/mongoose-connection");
+// const db = require("./config/mongoose-atlas-connection");
+const db = require("./config/mongoose-connection");
 const indexRouter = require("./routes/index-router");
 
 // app.use(cors({ origin: ["http://localhost:5173"], credentials: true }));
@@ -33,3 +33,11 @@ app.use((err, req, res, next) => {
 });
 
 
+
+
+/*
+npm install -g npm-check-updates
+ncu -u
+npm install
+
+*/
