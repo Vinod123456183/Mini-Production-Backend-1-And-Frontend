@@ -1,4 +1,4 @@
-const { errorHandler } = require("../utils/error");
+const errorHandler = require("../utils/error"); // ✅ no destructuring
 const bcrypt = require("bcrypt");
 const userModel = require("../models/user-model");
 const jwt = require("jsonwebtoken");
@@ -42,34 +42,47 @@ const signUpController = async (req, res, next) => {
   }
 };
 
-const loginController = async (req, res, next) => {
+const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    // 1. Validate if email and password are provided
     if (!email || !password) {
-      return next(errorHandler(400, "Email and Password are required"));
+      return res.status(400).json({
+        success: false,
+        message: "Email and Password are required",
+      });
     }
 
+    // 2. Find the user by email
     const validUser = await userModel.findOne({ email });
     if (!validUser) {
-      return next(errorHandler(400, "User Not Found!"));
+      return res.status(400).json({
+        success: false,
+        message: "User Not Found!",
+      });
     }
 
+    // 3. Compare the provided password with the stored hash using bcrypt
     const validPassword = await bcrypt.compare(password, validUser.password);
     if (!validPassword) {
-      return next(errorHandler(401, "Wrong Credentials"));
+      return res.status(401).json({
+        success: false,
+        message: "Wrong Credentials",
+      });
     }
 
+    // 4. Generate JWT token
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET_KEY, {
       expiresIn: "1d",
     });
 
+    // 5. Send response after removing the password from the response
     const { password: pass, ...rest } = validUser._doc;
 
     res
       .cookie("access_token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
         sameSite: "Strict",
         path: "/",
       })
@@ -80,7 +93,21 @@ const loginController = async (req, res, next) => {
         user: rest,
       });
   } catch (error) {
-    next(errorHandler(500, error.message));
+    console.error("Login error:", error);
+
+    // Token expiration check (not common, but good to handle)
+    if (error.name === "TokenExpiredError") {
+      return res.status(401).json({
+        success: false,
+        message: "Token has expired",
+      });
+    }
+
+    // If something else went wrong (like DB failure, etc.)
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
   }
 };
 
