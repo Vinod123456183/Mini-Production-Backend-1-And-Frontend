@@ -1,0 +1,41 @@
+-D : dev dependencies which use for only development only
+production m dev dependencies remove ho jati h.
+
+npm init -y
+
+npm i -D typescript @types/node
+
+npx tsc --init
+
+typesafety means int me hm int hi daal skte h not string 
+
+using typescript compiler we are executing js file.
+
+npm run build
+npm run dev
+
+npm i --save-dev @types/express
+
+
+
+() =>{
+    console.log("Port Running ")
+} 
+
+or single line () => log...
+
+
+model create me agar model banana h like user model so we use interface
+
+
+
+STATUS CODES  
+
+1XX : INFORMATIONAL
+2XX : SUCCESS
+3XX : REDIRECTIONAL
+4XX : CLIENT SIDE
+5XX : SERVER SIDE
+
+
+while adding data in db , reading db use async await for sure , bec kaam krne k baad send krega
