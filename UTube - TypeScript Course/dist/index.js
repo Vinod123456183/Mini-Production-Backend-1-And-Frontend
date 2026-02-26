@@ -1,0 +1,4 @@
+"use strict";
+console.log("Hello world");
+console.log(2 + 2);
+console.log("This is a test");
